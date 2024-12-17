@@ -32,7 +32,7 @@ async def webhook(request: Request) -> None:
    update = Update.model_validate(await request.json(), context={"bot": bot})
    await dp.feed_update(bot, update)
     
-@app.post("/")
+@app.get("/")
 async def home_page():
    return templates.TemplateResponse(name='home.html')
 
