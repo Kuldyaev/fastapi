@@ -33,8 +33,8 @@ async def webhook(request: Request) -> None:
    await dp.feed_update(bot, update)
     
 @app.get("/")
-async def home_page():
-   return templates.TemplateResponse(name='home.html')
+async def home_page(request: Request):
+   return templates.TemplateResponse(name='home.html', context={'request': request})
 
 application = ASGIMiddleware(app)
 
