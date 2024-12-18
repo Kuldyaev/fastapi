@@ -24,6 +24,22 @@ class User(Model):
    id: Mapped[int] = mapped_column(primary_key=True)
    telegram_id: Mapped[int | None]
 
+class UserDetails(Model):
+   __tablename__ = "user_details"
+   id: Mapped[int] = mapped_column(primary_key=True)
+   user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+   name: Mapped[str | None] = mapped_column(String(255))
+   familyname: Mapped[str | None] = mapped_column(String(255))
+
+   
+class GamerDetails(Model):
+   __tablename__ = "gamer_details"
+   id: Mapped[int] = mapped_column(primary_key=True)
+   user_id: Mapped[int] = mapped_column(ForeignKey("users.id"))
+   coins: Mapped[int]
+   energy: Mapped[int]
+   level: Mapped[int]
+   
 async def create_tables():
    async with engine.begin() as conn:
        await conn.run_sync(Model.metadata.create_all)
