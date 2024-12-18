@@ -1,17 +1,9 @@
-from contextlib import asynccontextmanager
 from fastapi import FastAPI, Request
-from a2wsgi import ASGIMiddleware
 from fastapi.middleware.cors import CORSMiddleware
-from aiogram.types import Update
-from database import create_tables, delete_tables
-from bot.create_bot import bot, dp, stop_bot, start_bot
-from routers.bot import bot_router
+from fastapi.templating import Jinja2Templates
+from a2wsgi import ASGIMiddleware
 from routers import router as api_router
 import uvicorn
-from config import config
-
-from fastapi.templating import Jinja2Templates
-
 
 app = FastAPI()
 
@@ -26,11 +18,6 @@ app.add_middleware(
 templates = Jinja2Templates(directory='templates')
 
 app.include_router(api_router)
-
-# @app.post("/webhook")
-# async def webhook(request: Request) -> None:
-#    update = Update.model_validate(await request.json(), context={"bot": bot})
-#    await dp.feed_update(bot, update)
     
 @app.get("/")
 async def home_page(request: Request):
