@@ -7,6 +7,6 @@ class Config(object):
     ADMIN_ID = 639238101
     
     def get_webhook_url(self) -> str:
-        return f"{self.BASE_URL}/webhook"
+        return f"{self.BASE_URL}/service/webhook"
     
 config = Config()     
