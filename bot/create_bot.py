@@ -7,18 +7,22 @@ from aiogram.filters import CommandStart
 from aiogram.types import Message, Update
 from config import Config, config
 
+from bot.keyboard import  app_keyboard
+
 
 bot_router = Router()
 
 @bot_router.message(CommandStart())
 async def cmd_start(message: Message) -> None:
-    print(message)
     await bot.send_message(Config.ADMIN_ID, f'Test Start🥳.')
 
 @bot_router.message()
 async def message_handler(message: Message):
-   print(message)
-   await message.answer('Hello from my router!')
+   await message.answer(
+                    f"Добро пожаловать , <b>{message.from_user.full_name}</b>! Присоединяйтесь к нашему проекту!\n",
+                    reply_markup=app_keyboard(user_id=message.from_user.id, is_new_user=False)
+               )
+   
     
 bot = Bot(token=Config.TELEGRAM_BOT_TOKEN, 
     default=DefaultBotProperties(parse_mode=ParseMode.HTML))    
