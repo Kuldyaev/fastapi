@@ -8,5 +8,6 @@ bot_router = Router()
 
 @bot_router.message(CommandStart())
 async def cmd_start(message: Message) -> None:
-    await BotRepository.greet_user(message)
+    print(message)
+    await bot.send_message(Config.ADMIN_ID, f'Я запущен🥳.')
     
